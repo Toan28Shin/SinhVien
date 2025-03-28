@@ -9,6 +9,7 @@ public class QuanLysinhVienApplication {
     public static void main(String[] args) {
         SpringApplication.run(QuanLysinhVienApplication.class, args);
         System.out.println("Loading....");
+        System.out.println("Loading....");
     }
 
 }
