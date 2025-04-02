@@ -6,24 +6,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
+@Table(name="ket_qua")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name="tai_khoan")
-public class TaiKhoan {
+public class KetQua {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String maTaiKhoan;
-    private String tenTaiKhoan;
-    private String matKhau;
-    private String email;
+
     @ManyToOne
-    @JoinColumn(name="quyen_id")
-    private Quyen quyen;
-    @OneToOne(mappedBy = "taiKhoan")
+    @JoinColumn(name = "sinh_vien_id")
     private SinhVien sinhVien;
 
+    @ManyToOne
+    @JoinColumn(name = "mon_hoc_id")
+    private MonHoc monHoc;
+
+    private Double diemQuaTrinh;
+    private Double diemThi;
+    private Integer trangThai; // 1
 }

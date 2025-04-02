@@ -38,10 +38,10 @@ public class TaiKhoanController {
         Optional<TaiKhoan> userOpt = userService.findByEmail(email);
         if (userOpt.isPresent()) {
             TaiKhoan user = userOpt.get();
-            if (password.equals(user.getMat_khau())) { // So sánh trực tiếp mật khẩu
+            if (password.equals(user.getMatKhau())) { // So sánh trực tiếp mật khẩu
                 session.setAttribute("loggedInUser", user);
                 model.addAttribute("email", email);
-                if (user.getQuyen() != null && "GiangVien".equals(user.getQuyen().getTen_quyen())) {
+                if (user.getQuyen() != null && "GiangVien".equals(user.getQuyen().getTenQuyen())) {
                     return "view/home_giangvien";
                 } else {
                     return "view/home_sinhvien";
@@ -65,7 +65,7 @@ public class TaiKhoanController {
         System.out.println("Session Role: " + user.getQuyen());
         model.addAttribute("email", user.getEmail());
 
-        if (user.getQuyen() != null && "GiangVien".equals(user.getQuyen().getTen_quyen())) {
+        if (user.getQuyen() != null && "GiangVien".equals(user.getQuyen().getTenQuyen())) {
             return "view/home_giangvien";
         } else {
             return "view/home_sinhvien";
