@@ -6,22 +6,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name="mon_hoc")
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class MonHoc {
+@Entity
+@Table(name="giang_vien")
+public class GiangVien {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String maMonHoc;
-    private String tenMon;
-    private String soTinChi;
+    private String maGiangVien;
+    private String hoTen;
+    private String email;
+    private String soDienThoai;
+    private String chuyenMon;
     private int trangThai;
 
-    @ManyToOne
-    private GiangVien giangVien;
+    @OneToOne
+    private TaiKhoan taiKhoan;
 
 }

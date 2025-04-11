@@ -13,7 +13,8 @@ public class KetQuaSetvice {
     private KetQuaRepository ketQuaRepository;
 
 
-    public List<KetQua> getAllKetQua() {
-        return ketQuaRepository.findAll();
+    // Phương thức tìm kết quả học tập của sinh viên theo ID
+    public List<KetQua> findBySinhVienId(Long sinhVienId) {
+        return ketQuaRepository.findBySinhVienId(sinhVienId);
     }
 }

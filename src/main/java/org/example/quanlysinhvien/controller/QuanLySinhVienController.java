@@ -36,42 +36,24 @@ public class QuanLySinhVienController {
     }
 
     @PostMapping("/them-sinh-vien")
-    public String themSinhVien(@Valid @ModelAttribute("sinhVien") SinhVien sinhVien, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String themSinhVien(@Valid @ModelAttribute("sinhVien") SinhVien sinhVien, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            // Thêm thông báo thất bại nếu có lỗi validate
-            redirectAttributes.addFlashAttribute("error", "Thêm sinh viên thất bại. Vui lòng kiểm tra lại thông tin.");
-            return "redirect:/formThem";
+            return "view/themsinhvien";
         }
-
-        try {
-            sinhVienService.themSinhVien(sinhVien);
-            redirectAttributes.addFlashAttribute("message", "Thêm sinh viên thành công!");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Thêm sinh viên thất bại. Vui lòng thử lại.");
-        }
-
+        sinhVienService.themSinhVien(sinhVien);
         return "redirect:/quan-ly-sinh-vien";
     }
 
-    @GetMapping("/form-sua-sinh-vien/{maSinhVien}")
-    public String formSuaSinhVien(@PathVariable("maSinhVien") String maSinhVien, Model model) {
-        model.addAttribute("sinhVien", sinhVienService.getSinhVien(maSinhVien));
-        return "view/suaSinhvien";
-    }
-
-    @PostMapping("/form-sua-sinh-vien/{maSinhVien}")
-    public String suaSinhVien(@Valid @ModelAttribute("sinhVien") SinhVien sinhVien, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("sinhVien", sinhVien);
-            return "view/suaSinhVien";
+    @GetMapping("/chi-tiet-sinh-vien/{id}")
+    public String chiTietSuaSinhVien(@PathVariable("id") Long id, Model model) {
+        SinhVien sinhVien = sinhVienService.getSinhVien(id);
+        if (sinhVien.getTaiKhoan() == null) {
+            // Nếu sinh viên không có tài khoản, chuyển hướng về trang quản lý sinh viên và thông báo lỗi
+            model.addAttribute("error", "Sinh viên này chưa có tài khoản.");
+            return "redirect:/quan-ly-sinh-vien";
         }
-        sinhVienService.suaSinhVien(sinhVien);
-        return "redirect:quan-ly-sinh-vien";
-    }
-    @GetMapping("/chi-tiet-sinh-vien/{maSinhVien}")
-    public String chiTietSuaSinhVien(@PathVariable("maSinhVien") String maSinhVien, Model model) {
-        model.addAttribute("sinhVien", sinhVienService.getSinhVien(maSinhVien));
-        model.addAttribute("ketQua", ketQuaSetvice.getAllKetQua());
+        model.addAttribute("sinhVien", sinhVienService.getSinhVien(id));
+        model.addAttribute("ketQua", ketQuaSetvice.findBySinhVienId(id));
         return "view/chitietsinhvien";
     }
 }

@@ -75,16 +75,10 @@ public class SinhVienService {
         return sinhVienRepository.findAll();
     }
 
-    public void suaSinhVien(@Valid SinhVien sinhVien) {
-        if (sinhVien.getMaSinhVien() == null || sinhVien.getMaSinhVien().isEmpty()) {
-            throw new IllegalArgumentException("Mã sinh viên không hợp lệ");
-        }
-        sinhVienRepository.save(sinhVien);
 
-    }
 
-    public SinhVien getSinhVien(String maSinhVien) {
-        return sinhVienRepository.findByMaSinhVien(maSinhVien);
+    public SinhVien getSinhVien(Long id) {
+        return sinhVienRepository.findById(id).get();
     }
 
 
