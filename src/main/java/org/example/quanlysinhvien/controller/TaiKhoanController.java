@@ -30,6 +30,16 @@ public class TaiKhoanController {
         return "View/login"; // Trả về trang đăng nhập
     }
 
+    @GetMapping("/home-giang-vien")
+    public String homeGiangVien() {
+        return "View/home_giangvien";
+    }
+
+    @GetMapping("/home-sinh-vien")
+    public String homeSinhVien() {
+        return "View/home_sinhvien";
+    }
+
     // Xử lý đăng nhập
     @PostMapping("/login")
     public String login(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {

@@ -1,16 +1,14 @@
 package org.example.quanlysinhvien.controller;
 
 import jakarta.validation.Valid;
-import org.example.quanlysinhvien.entity.KetQua;
 import org.example.quanlysinhvien.entity.SinhVien;
-import org.example.quanlysinhvien.service.KetQuaSetvice;
+import org.example.quanlysinhvien.service.KetQuaService;
 import org.example.quanlysinhvien.service.SinhVienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -19,8 +17,8 @@ public class QuanLySinhVienController {
 
     @Autowired
     private SinhVienService sinhVienService;
-   @Autowired
-    private KetQuaSetvice ketQuaSetvice;
+    @Autowired
+    private KetQuaService ketQuaSetvice;
 
     @GetMapping("/quan-ly-sinh-vien")
     public String quanlysinhvien(Model model) {

@@ -25,4 +25,16 @@ public class DangKy {
     private int namHoc;
     private int trangThai;
 
+    // Các thuộc tính tính toán (không cần lưu vào cơ sở dữ liệu)
+    @Transient
+    private Double diemQuaTrinh; // Điểm quá trình
+    @Transient
+    private Double diemThi; // Điểm thi
+    @Transient
+    private Double diemTB; // Điểm TB (10)
+    @Transient
+    private Double diemTBThang4; // Điểm TB thang 4
+    @Transient
+    private String trangThaiHoc; // Trạng thái (Đạt / Trượt)
+
 }
