@@ -38,7 +38,7 @@ public class TaiKhoanController {
         Optional<TaiKhoan> userOpt = userService.findByEmail(email);
         if (userOpt.isPresent()) {
             TaiKhoan user = userOpt.get();
-            if (password.equals(user.getMat_khau())) { // So sánh trực tiếp mật khẩu
+            if (password.equals(user.getMatKhau())) { // So sánh trực tiếp mật khẩu
                 session.setAttribute("loggedInUser", user);
                 model.addAttribute("email", email);
                 if (user.getQuyen() != null && "GiangVien".equals(user.getQuyen().getTen_quyen())) {

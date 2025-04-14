@@ -16,11 +16,14 @@ public class TaiKhoan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String ten_tai_khoan;
-    private String mat_khau;
+    private String maTaiKhoan;
+    private String tenTaiKhoan;
+    private String matKhau;
     private String email;
     @ManyToOne
     @JoinColumn(name="quyen_id")
     private Quyen quyen;
+    @OneToOne(mappedBy = "taiKhoan")
+    private SinhVien sinhVien;
 
 }
