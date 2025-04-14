@@ -44,7 +44,11 @@
             <option value="Python" th:selected="${subject == 'Python'}">Python</option>
             <option value="HTML/CSS" th:selected="${subject == 'HTML/CSS'}">HTML/CSS</option>
         </select>
-
+        <select name="sapXep" class="form-select w-25 ms-2" onchange="this.form.submit()">
+            <option value="">Sắp xếp học lực</option>
+            <option value="desc" th:selected="${sapXep == 'desc'}">Giỏi → Yếu</option>
+            <option value="asc" th:selected="${sapXep == 'asc'}">Yếu → Giỏi</option>
+        </select>
         <button class="btn btn-primary" type="submit">Tìm kiếm</button>
     </form>
 
@@ -59,7 +63,7 @@
             <th>Điểm Thi</th>
             <th>Tổng Điểm</th>
             <th>Xếp Loại</th>
-            <th>Hành Động</th>
+<!--            <th>Hành Động</th>-->
         </tr>
         </thead>
         <tbody>
@@ -71,15 +75,14 @@
             <td th:text="${ketQua.diemThi}"></td>
             <td th:text="${ketQua.getTongDiem()}"></td>
             <td th:text="${ketQua.getXepLoai()}"></td>
-            <td>
-                <a th:href="@{/form-sua/{id}(id=${ketQua.id})}" class="btn btn-warning">Cập Nhật</a>
-                <!--                <a th:href="@{/xoa/{id}(id=${ketQua.id})}" class="btn btn-danger">Xóa</a>-->
-            </td>
+<!--            <td>-->
+<!--                <a th:href="@{/form-sua/{id}(id=${ketQua.id})}" class="btn btn-warning">Cập Nhật</a>-->
+<!--                <a th:href="@{/xoa/{id}(id=${ketQua.id})}" class="btn btn-danger">Xóa</a>-->
+<!--            </td>-->
         </tr>
         </tbody>
     </table>
-
-    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addScoreModal">Thêm Điểm Mới</button>
+<!--    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addScoreModal">Thêm Điểm Mới</button>-->
 </div>
 
 <!-- Modal Thêm Điểm -->
@@ -119,6 +122,7 @@
                         <input type="number" id="exam-score" class="form-control" name="examScore" min="0" max="10"
                                required>
                     </div>
+
 
                     <button type="submit" class="btn btn-primary">Lưu Điểm</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>

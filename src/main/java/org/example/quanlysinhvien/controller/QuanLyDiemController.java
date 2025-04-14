@@ -28,6 +28,7 @@ public class QuanLyDiemController {
     @GetMapping("/quan-ly-diem")
     public String danhSachDiem(@RequestParam(required = false) String keyword,
                                @RequestParam(required = false) String subject,
+                               @RequestParam(required = false) String sapXep,
                                Model model) {
 
         List<KetQua> ketQuas = ketQuaSetvice.getAllKetQua();
@@ -45,10 +46,22 @@ public class QuanLyDiemController {
                     .filter(kq -> kq.getMonHoc().getTenMon().equalsIgnoreCase(subject))
                     .toList();
         }
-
+        // Sắp xếp theo học lực (giỏi -> yếu hoặc yếu -> giỏi)
+        if (sapXep != null && !sapXep.isEmpty()) {
+            if (sapXep.equals("asc")) {
+                ketQuas = ketQuas.stream()
+                        .sorted((k1, k2) -> k1.getTongDiem().compareTo(k2.getTongDiem()))
+                        .toList();
+            } else if (sapXep.equals("desc")) {
+                ketQuas = ketQuas.stream()
+                        .sorted((k1, k2) -> k2.getTongDiem().compareTo(k1.getTongDiem()))
+                        .toList();
+            }
+        }
         model.addAttribute("ketQuas", ketQuas);
         model.addAttribute("keyword", keyword);
         model.addAttribute("subject", subject);
+        model.addAttribute("sapXep", sapXep);
         return "view/quanlydiem";
     }
 

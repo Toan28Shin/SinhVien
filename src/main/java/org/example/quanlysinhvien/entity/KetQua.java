@@ -42,7 +42,7 @@ public class KetQua {
     private Double diemThi;
 
     @Transient
-    public double getTongDiem() {
+    public Double getTongDiem() {
         double tong = (diemQuaTrinh * 0.4) + (diemThi * 0.6);
         return Math.round(tong * 10) / 10.0; // làm tròn đến 1 chữ số sau dấu phẩy
     }
