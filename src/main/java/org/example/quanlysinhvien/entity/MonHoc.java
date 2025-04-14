@@ -18,7 +18,7 @@ public class MonHoc {
     private Long id;
     private String maMonHoc;
     private String tenMon;
-    private String soTinChi;
+    private int soTinChi;
     private int trangThai;
 
     @ManyToOne

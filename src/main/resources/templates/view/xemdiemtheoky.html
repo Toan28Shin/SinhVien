@@ -74,23 +74,25 @@
                         <th>Điểm quá trình</th>
 
                         <th>Diểm thi</th>
-                        <th>Điểm TB (10)</th>
-                        <th>Điểm TB Thang 4</th>
+                        <th>Điểm TB thang 10</th>
+                        <th>Điểm TB thang 4</th>
+                        <th>Điểm chữ</th>
                         <th>Trạng thái</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="dangKy : ${ketQuaList}">
-                        <td th:text="${dangKy.monHoc.tenMon}"></td> <!-- Tên môn -->
-                        <td th:text="${dangKy.monHoc.maMonHoc}"></td> <!-- Mã môn -->
-                        <td th:text="${dangKy.diemQuaTrinh}"></td> <!-- Điểm quá trình -->
-                        <td th:text="${dangKy.diemThi}"></td> <!-- Điểm thi -->
+                        <td th:text="${dangKy.monHoc.tenMon}"></td>
+                        <td th:text="${dangKy.monHoc.maMonHoc}"></td>
+                        <td th:text="${dangKy.diemQuaTrinh}"></td>
+                        <td th:text="${dangKy.diemThi}"></td>
                         <td th:text="${#numbers.formatDecimal(dangKy.diemTB, 1, 2)}"></td>
                         <td th:text="${#numbers.formatDecimal(dangKy.diemTBThang4, 1, 2)}"></td>
+                        <td th:text="${dangKy.diemChu}"></td>
                         <td>
                             <span th:text="${dangKy.trangThaiHoc}"
                                   th:classappend="${dangKy.trangThaiHoc == 'Đạt' ? 'text-success fw-bold' : 'text-danger fw-bold'}"></span>
-                            <!-- Trạng thái -->
+
                         </td>
                     </tr>
                     </tbody>

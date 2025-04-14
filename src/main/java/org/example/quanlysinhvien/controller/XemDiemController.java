@@ -39,6 +39,25 @@ public class XemDiemController {
         // Lấy danh sách DangKy đã tính điểm
         List<DangKy> ketQuaList = dangKyService.findDiemTheoKy(sinhVienId, hocKy);
 
+        // Tính điểm và điểm chữ cho từng môn học
+        for (DangKy dangKy : ketQuaList) {
+            // Lấy điểm từ bảng Kết Quả
+            List<KetQua> ketQuas = ketQuaService.findBySinhVienAndMonHoc(dangKy.getSinhVien(), dangKy.getMonHoc());
+            if (!ketQuas.isEmpty()) {
+                KetQua ketQua = ketQuas.get(0); // lấy cái đầu tiên nếu có nhiều
+                dangKy.setDiemQuaTrinh(ketQua.getDiemQuaTrinh());
+                dangKy.setDiemThi(ketQua.getDiemThi());
+            }
+
+            // Tính điểm trung bình
+            double diemTB = (dangKy.getDiemQuaTrinh() * 0.4) + (dangKy.getDiemThi() * 0.6);
+            dangKy.setDiemTB(diemTB); // Set điểm TB
+
+            // Tính điểm chữ
+            String diemChu = dangKyService.tinhDiemChu(diemTB);
+            dangKy.setDiemChu(diemChu);
+        }
+
         // Thêm dữ liệu vào model
         model.addAttribute("ketQuaList", ketQuaList);
         model.addAttribute("selectedHocKy", hocKy);
@@ -58,10 +77,25 @@ public class XemDiemController {
                 dangKy.setDiemQuaTrinh(ketQua.getDiemQuaTrinh());
                 dangKy.setDiemThi(ketQua.getDiemThi());
             }
+            // Tính điểm trung bình
+            double diemTB = (dangKy.getDiemQuaTrinh() * 0.4) + (dangKy.getDiemThi() * 0.6);
+            dangKy.setDiemTB(diemTB); // Set điểm TB
+
+            // Tính điểm TB thang 4
+            double diemTBThang4 = (diemTB / 10) * 4;
+            dangKy.setDiemTBThang4(diemTBThang4);
+
+            // Tính điểm chữ
+            String diemChu = dangKyService.tinhDiemChu(diemTB);
+            dangKy.setDiemChu(diemChu);
         }
 
+        double[] gpa = dangKyService.tinhGPA(dangKys);
+        model.addAttribute("gpa10", String.format("%.2f", gpa[0]));
+        model.addAttribute("gpa4", String.format("%.2f", gpa[1]));
+
         model.addAttribute("ketQuaList", dangKys);
-        return "view/xemdiem"; // trỏ đến file HTML
+        return "view/xemdiem";
     }
 
 }

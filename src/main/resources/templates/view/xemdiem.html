@@ -53,34 +53,37 @@
                     <tr>
                         <th>Tên môn</th>
                         <th>Mã môn</th>
+                        <th>Số tín chỉ</th>
                         <th>Điểm quá trình</th>
 
                         <th>Diểm thi</th>
-                        <th>Điểm TB (10)</th>
-                        <th>Điểm TB Thang 4</th>
+                        <th>Điểm TB thang 10</th>
+                        <th>Điểm TB thang 4</th>
+                        <th>Điểm chữ</th>
                         <th>Trạng thái</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="dangKy : ${ketQuaList}">
-                        <td th:text="${dangKy.monHoc.tenMon}"></td> <!-- Tên môn -->
-                        <td th:text="${dangKy.monHoc.maMonHoc}"></td> <!-- Mã môn -->
-                        <td th:text="${dangKy.diemQuaTrinh}"></td> <!-- Điểm quá trình -->
-                        <td th:text="${dangKy.diemThi}"></td> <!-- Điểm thi -->
+                        <td th:text="${dangKy.monHoc.tenMon}"></td>
+                        <td th:text="${dangKy.monHoc.maMonHoc}"></td>
+                        <td th:text="${dangKy.monHoc.soTinChi}"></td>
+                        <td th:text="${dangKy.diemQuaTrinh}"></td>
+                        <td th:text="${dangKy.diemThi}"></td>
                         <td th:text="(${dangKy.diemQuaTrinh} * 0.4) + (${dangKy.diemThi} * 0.6) "></td>
                         <td th:text="(((${dangKy.diemQuaTrinh} * 0.4) + (${dangKy.diemThi} * 0.6)) / 10)*4"></td>
+                        <td th:text="${dangKy.diemChu}"></td>
                         <td>
                           <span th:text="(${dangKy.diemQuaTrinh} * 0.4) + (${dangKy.diemThi} * 0.6) >= 5 ? 'Đạt' : 'Trượt'"
                                 th:classappend="(${dangKy.diemQuaTrinh} * 0.4) + (${dangKy.diemThi} * 0.6) >= 5 ? 'text-success fw-bold' : 'text-danger fw-bold'"></span>
                         </td>
                 </table>
             </div>
+            <div class="mt-4 text-stats">
+                <p class="fw-bold">🎓 GPA (thang 10): <span class="text-primary" th:text="${gpa10}"></span></p>
+                <p class="fw-bold">🎓 GPA (thang 4): <span class="text-success" th:text="${gpa4}"></span></p>
+            </div>
 
-<!--            &lt;!&ndash; GPA &ndash;&gt;-->
-<!--            <div class="mt-4">-->
-<!--                <p class="fw-bold">GPA học kỳ: <span th:text="${gpaHocKy}" class="text-primary"></span> / 4.0</p>-->
-<!--                <p class="fw-bold">GPA tích lũy: <span th:text="${gpaTichLuy}" class="text-success"></span> / 4.0</p>-->
-<!--            </div>-->
         </div>
     </div>
 </div>

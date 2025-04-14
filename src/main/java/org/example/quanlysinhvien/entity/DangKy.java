@@ -36,5 +36,8 @@ public class DangKy {
     private Double diemTBThang4; // Điểm TB thang 4
     @Transient
     private String trangThaiHoc; // Trạng thái (Đạt / Trượt)
+    @Transient
+    private String diemChu;
+
 
 }
