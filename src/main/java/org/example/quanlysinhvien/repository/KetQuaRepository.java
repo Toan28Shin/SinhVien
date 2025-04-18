@@ -17,3 +17,4 @@ public interface KetQuaRepository extends JpaRepository<KetQua, Long> {
     // Tìm kết quả (điểm quá trình và điểm thi) của sinh viên theo môn học
     List<KetQua> findBySinhVienAndMonHoc(SinhVien sinhVien, MonHoc monHoc);
 }
+

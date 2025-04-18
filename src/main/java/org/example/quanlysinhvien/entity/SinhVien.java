@@ -6,12 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.quanlysinhvien.repository.SinhVienRepository;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -64,6 +60,5 @@ public class SinhVien {
 
     @OneToMany(mappedBy = "sinhVien")
     private List<KetQua> ketQua;
-
 
 }

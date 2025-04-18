@@ -49,6 +49,7 @@ public class TaiKhoanController {
         if (userOpt.isPresent()) {
             TaiKhoan user = userOpt.get();
 
+
             // Kiểm tra mật khẩu
             if (!user.getMatKhau().equals(password)) {
                 model.addAttribute("error", "Mật khẩu không chính xác!");
@@ -66,6 +67,7 @@ public class TaiKhoanController {
                 if (user.getSinhVien() == null) {
                     model.addAttribute("error", "Tài khoản chưa liên kết với sinh viên.");
                     return "View/login";
+
                 }
 
                 // ✅ Lưu id sinh viên vào session (QUAN TRỌNG)

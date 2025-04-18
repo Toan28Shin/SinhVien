@@ -1,5 +1,6 @@
 package org.example.quanlysinhvien.service;
 
+
 import jakarta.validation.Valid;
 import org.example.quanlysinhvien.entity.Quyen;
 import org.example.quanlysinhvien.entity.SinhVien;
@@ -22,7 +23,6 @@ public class SinhVienService {
 
     @Autowired
     private QuyenRepository quyenRepository;
-
 
     private String generateMaTaiKhoan() {
         String prefix = "TK";
@@ -64,7 +64,6 @@ public class SinhVienService {
             sinhVien.setTaiKhoan(taiKhoan);
             sinhVien.setTrangThai(1);
 
-
         }
 
         // Lưu sinh viên vào cơ sở dữ liệu
@@ -76,10 +75,7 @@ public class SinhVienService {
     }
 
 
-
     public SinhVien getSinhVien(Long id) {
         return sinhVienRepository.findById(id).get();
     }
-
-
 }
