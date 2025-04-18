@@ -18,5 +18,5 @@ public class Quyen {
     private Integer id;
 
     @Column(unique = true, nullable = false)
-    private String ten_quyen;
+    private String tenQuyen;
 }

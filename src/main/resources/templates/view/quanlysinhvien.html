@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản Lý Sinh Viên</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
 
@@ -17,8 +17,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/home-giang-vien">Trang chủ</a></li>
-                <li class="nav-item"><a class="nav-link active" href="/quan-ly-sinh-vien">Quản lý sinh viên</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/home-giang-vien">Trang chủ</a></li>
+                <li class="nav-item"><a class="nav-link" href="/quan-ly-sinh-vien">Quản lý sinh viên</a></li>
                 <li class="nav-item"><a class="nav-link" href="/quan-ly-diem">Quản lý điểm</a></li>
                 <li class="nav-item"><a class="nav-link" href="/quan-ly-lich-hoc">Quản lý lịch học</a></li>
                 <li class="nav-item"><a class="nav-link" href="/quan-ly-thong-bao">Gửi thông báo</a></li>
@@ -30,37 +30,55 @@
 
 <!-- Nội dung chính -->
 <div class="container mt-4">
-    <h2>Danh sách Sinh viên</h2>
+    <h2 class="text-center">Danh sách Sinh viên</h2>
 
     <!-- Nút Thêm Sinh Viên -->
-    <a href="/sinhvien/add" class="btn btn-success mb-3">Thêm sinh viên</a>
+    <a th:href="@{/formThem}" class="btn btn-success mb-3">Thêm sinh viên</a>
 
     <!-- Bảng danh sách sinh viên -->
-    <table class="table table-bordered">
-        <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Họ Tên</th>
-            <th>Email</th>
-            <th>Lớp</th>
-            <th>Hành động</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="sinhvien : ${listSinhVien}">
-            <td th:text="${sinhvien.id}"></td>
-            <td th:text="${sinhvien.hoTen}"></td>
-            <td th:text="${sinhvien.email}"></td>
-            <td th:text="${sinhvien.lop}"></td>
-            <td>
-                <a th:href="@{/sinhvien/edit/{id}(id=${sinhvien.id})}" class="btn btn-warning btn-sm">Sửa</a>
-                <a th:href="@{/sinhvien/delete/{id}(id=${sinhvien.id})}" class="btn btn-danger btn-sm">Xóa</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-bordered mt-3">
+            <thead>
+            <tr>
+                <th>STT</th>
+                <th>Mã Sinh Viên</th>
+                <th>Họ Tên</th>
+                <th>Email</th>
+                <th>Ngày Sinh</th>
+                <th>Giới Tính</th>
+                <th>Số Điện Thoại</th>
+                <th>Địa Chỉ</th>
+                <th>Ngày Nhập Học</th>
+                <th>Hành động</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Lặp qua danh sách sinh viên -->
+            <tr th:each="sinhVien, stat : ${sinhViens}">
+                <td th:text="${stat.index + 1}"></td>
+                <td th:text="${sinhVien.maSinhVien}"></td>
+                <td th:text="${sinhVien.hoTen}"></td>
+                <td th:text="${sinhVien.email}"></td>
+                <td th:text="${sinhVien.ngaySinh}"></td>
+                <td th:text="${sinhVien.gioiTinh}"></td>
+                <td th:text="${sinhVien.soDienThoai}"></td>
+                <td th:text="${sinhVien.diaChi}"></td>
+                <td th:text="${sinhVien.ngayNhapHoc}"></td>
+                <td><a th:href="@{/form-sua-sinh-vien/{id}(id=${sinhVien.id})}"
+                       class="btn btn-warning">Sửa</a>
+                    <a th:href="@{/xoa-sinh-vien/{id}(id=${sinhVien.id})}"
+                       class="btn btn-danger">Xóa</a>
+                    <a th:href="@{/chi-tiet-sinh-vien/{id}(id=${sinhVien.id})}"
+                       class="btn btn-info">Chi Tiết</a></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -20,12 +20,13 @@
                 <li class="nav-item"><a class="nav-link active" href="/home-sinh-vien">Trang chủ</a></li>
                 <!-- Dropdown Xem Điểm -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Xem điểm
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <!-- Xem điểm theo học kỳ -->
-                        <li><a class="dropdown-item" href="/xem-diem-theo-ky"> điểm theo kỳ</a></li>
+                        <li><a class="dropdown-item" href="/xem-diem-theo-ky">điểm theo kỳ</a></li>
                         <!-- Xem điểm tất cả -->
                         <li><a class="dropdown-item" href="/xem-diem">điểm</a></li>
                     </ul>
@@ -45,6 +46,23 @@
             <h4>BẢNG ĐIỂM SINH VIÊN</h4>
         </div>
         <div class="card-body">
+            <!-- Dropdown chọn học kỳ -->
+            <form method="get" th:action="@{/xem-diem-theo-ky}" class="mb-3">
+                <div class="row g-3 align-items-center">
+
+                    <div class="col-md-12">
+                        <label for="hocKy" class="form-label fw-bold">Chọn học kỳ:</label>
+                        <select name="hocKy" id="hocKy" class="form-select" onchange="this.form.submit()">
+                            <option th:each="hk : ${dsHocKy}"
+                                    th:value="${hk}"
+                                    th:text="'Học kỳ ' + ${hk}"
+                                    th:selected="${hk == selectedHocKy}">
+                            </option>
+                        </select>
+
+                    </div>
+                </div>
+            </form>
 
             <!-- Bảng điểm -->
             <div class="table-responsive">
@@ -53,7 +71,6 @@
                     <tr>
                         <th>Tên môn</th>
                         <th>Mã môn</th>
-                        <th>Số tín chỉ</th>
                         <th>Điểm quá trình</th>
 
                         <th>Diểm thi</th>
@@ -67,23 +84,20 @@
                     <tr th:each="dangKy : ${ketQuaList}">
                         <td th:text="${dangKy.monHoc.tenMon}"></td>
                         <td th:text="${dangKy.monHoc.maMonHoc}"></td>
-                        <td th:text="${dangKy.monHoc.soTinChi}"></td>
                         <td th:text="${dangKy.diemQuaTrinh}"></td>
                         <td th:text="${dangKy.diemThi}"></td>
-                        <td th:text="(${dangKy.diemQuaTrinh} * 0.4) + (${dangKy.diemThi} * 0.6) "></td>
-                        <td th:text="(((${dangKy.diemQuaTrinh} * 0.4) + (${dangKy.diemThi} * 0.6)) / 10)*4"></td>
+                        <td th:text="${#numbers.formatDecimal(dangKy.diemTB, 1, 2)}"></td>
+                        <td th:text="${#numbers.formatDecimal(dangKy.diemTBThang4, 1, 2)}"></td>
                         <td th:text="${dangKy.diemChu}"></td>
                         <td>
-                          <span th:text="(${dangKy.diemQuaTrinh} * 0.4) + (${dangKy.diemThi} * 0.6) >= 5 ? 'Đạt' : 'Trượt'"
-                                th:classappend="(${dangKy.diemQuaTrinh} * 0.4) + (${dangKy.diemThi} * 0.6) >= 5 ? 'text-success fw-bold' : 'text-danger fw-bold'"></span>
+                            <span th:text="${dangKy.trangThaiHoc}"
+                                  th:classappend="${dangKy.trangThaiHoc == 'Đạt' ? 'text-success fw-bold' : 'text-danger fw-bold'}"></span>
+
                         </td>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
-            <div class="mt-4 text-stats">
-                <p class="fw-bold">🎓 GPA (thang 10): <span class="text-primary" th:text="${gpa10}"></span></p>
-                <p class="fw-bold">🎓 GPA (thang 4): <span class="text-success" th:text="${gpa4}"></span></p>
-            </div>
-
         </div>
     </div>
 </div>

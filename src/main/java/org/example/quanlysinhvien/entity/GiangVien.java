@@ -6,24 +6,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name="tai_khoan")
-public class TaiKhoan {
+@Table(name="giang_vien")
+public class GiangVien {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String maTaiKhoan;
-    private String tenTaiKhoan;
-    private String matKhau;
+    private String maGiangVien;
+    private String hoTen;
     private String email;
-    @ManyToOne
-    @JoinColumn(name="quyen_id")
-    private Quyen quyen;
-    @OneToOne(mappedBy = "taiKhoan")
-    private SinhVien sinhVien;
+    private String soDienThoai;
+    private String chuyenMon;
+    private int trangThai;
+
+    @OneToOne
+    private TaiKhoan taiKhoan;
 
 }

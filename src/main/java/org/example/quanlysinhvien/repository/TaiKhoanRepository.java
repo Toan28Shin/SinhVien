@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, Long> {
     @Query("SELECT u FROM TaiKhoan u JOIN FETCH u.quyen WHERE u.email = :email")
     Optional<TaiKhoan> findByEmail(@Param("email") String email);
+    boolean existsByMaTaiKhoan(String maTaiKhoan);  // Phương thức kiểm tra mã tài khoản đã tồn tại chưa
+
 }
