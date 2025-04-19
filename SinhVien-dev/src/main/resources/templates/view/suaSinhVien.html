@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm Sinh Viên</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+</head>
+<body>
+
+<!-- Nội dung chính -->
+<div class="container mt-4">
+    <h2 class="text-center">Sửa Sinh Viên</h2>
+
+    <!-- Form Thêm Sinh Viên -->
+    <form th:action="@{/sua-sinh-vien}" th:object="${sinhVien}" method="POST" class="needs-validation" novalidate>
+
+        <!-- Mã -->
+        <div class="mb-3">
+            <!--                    <label for="hoTen" class="form-label">Mã Sinh Viên</label>-->
+            <input type="hidden" class="form-control" id="maSinhVien" th:field="*{maSinhVien}"
+                   placeholder="Nhập mã sinh viên" required>
+            <span th:if="${#fields.hasErrors('maSinhVien')}" th:errors="*{maSinhVien}"></span>
+        </div>
+        <!-- Họ Tên -->
+        <div class="mb-3">
+            <label for="hoTen" class="form-label">Họ Tên</label>
+            <input type="text" class="form-control" id="hoTen" th:field="*{hoTen}" placeholder="Nhập họ tên"
+                   required>
+            <span th:if="${#fields.hasErrors('hoTen')}" th:errors="*{hoTen}"></span>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Nhập email"
+                   required>
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        </div>
+
+        <!-- Ngày Sinh -->
+        <div class="mb-3">
+            <label for="ngaySinh" class="form-label">Ngày Sinh</label>
+            <input type="date" class="form-control" id="ngaySinh" th:field="*{ngaySinh}" required>
+            <span th:if="${#fields.hasErrors('ngaySinh')}" th:errors="*{ngaySinh}"></span>
+        </div>
+
+        <!-- Giới Tính -->
+        <div class="mb-3">
+            <label for="gioiTinh" class="form-label">Giới Tính</label>
+            <select class="form-control" id="gioiTinh" th:field="*{gioiTinh}" required>
+                <option value="Nam" th:selected="${sinhVien.gioiTinh == 'Nam'}">Nam</option>
+                <option value="Nu" th:selected="${sinhVien.gioiTinh == 'Nu'}">Nữ</option>
+            </select>
+            <span th:if="${#fields.hasErrors('gioiTinh')}" th:errors="*{gioiTinh}"></span>
+        </div>
+
+        <!-- Số Điện Thoại -->
+        <div class="mb-3">
+            <label for="soDienThoai" class="form-label">Số Điện Thoại</label>
+            <input type="text" class="form-control" id="soDienThoai" th:field="*{soDienThoai}"
+                   placeholder="Nhập số điện thoại" required>
+            <span th:if="${#fields.hasErrors('soDienThoai')}" th:errors="*{soDienThoai}"></span>
+        </div>
+
+        <!-- Địa Chỉ -->
+        <div class="mb-3">
+            <label for="diaChi" class="form-label">Địa Chỉ</label>
+            <textarea class="form-control" id="diaChi" th:field="*{diaChi}" rows="3" placeholder="Nhập địa chỉ"
+                      required></textarea>
+            <span th:if="${#fields.hasErrors('diaChi')}" th:errors="*{diaChi}"></span>
+        </div>
+
+        <!-- Ngày Nhập Học -->
+        <div class="mb-3">
+            <label for="ngayNhapHoc" class="form-label">Ngày Nhập Học</label>
+            <input type="date" class="form-control" id="ngayNhapHoc" th:field="*{ngayNhapHoc}" required>
+            <span th:if="${#fields.hasErrors('ngayNhapHoc')}" th:errors="*{ngayNhapHoc}"></span>
+        </div>
+
+        <!-- Nút gửi form -->
+        <button type="submit" class="btn btn-primary">Sửa Sinh Viên</button>
+        <a href="/quan-ly-sinh-vien" class="btn btn-secondary">Quay lại</a>
+    </form>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Trang chủ</title>
+</head>
+<body>
+<h1>Chào mừng đến với Hệ thống Quản lý Sinh viên</h1>
+
+<div th:if="${loggedInUser == null}">
+    <p>Bạn chưa đăng nhập. <a href="login">Đăng nhập ngay</a></p>
+</div>
+
+<div th:if="${loggedInUser != null}">
+    <p>Chào, <span th:text="${loggedInUser.email}"></span>!</p>
+    <p><a href="/logout">Đăng xuất</a></p>
+</div>
+
+</body>
+</html>
