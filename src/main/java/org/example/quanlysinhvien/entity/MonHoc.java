@@ -33,7 +33,7 @@ public class MonHoc {
 
     @NotBlank(message = "Số tín chỉ không được để trống")
     @Column(name = "so_tin_chi", nullable = false)
-    private String soTinChi;
+    private int soTinChi;
 
     @Column(name = "trang_thai", nullable = false)
     private int trangThai; // 1: Hoạt động, 0: Ngừng hoạt động
