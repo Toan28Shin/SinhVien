@@ -71,7 +71,8 @@ public class SinhVienService {
     }
 
     public List<SinhVien> getAllSinhVien() {
-        return sinhVienRepository.findAll();
+
+        return sinhVienRepository.findByTrangThai(1);
     }
 
 
