@@ -2,6 +2,7 @@ package org.example.quanlysinhvien.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.example.quanlysinhvien.entity.LichHoc;
+import org.example.quanlysinhvien.entity.SinhVien;
 import org.example.quanlysinhvien.entity.TaiKhoan;
 import org.example.quanlysinhvien.service.TaiKhoanService;
 import org.example.quanlysinhvien.service.LichHocService;
@@ -30,15 +31,6 @@ public class TaiKhoanController {
         return "View/login"; // Trả về trang đăng nhập
     }
 
-    @GetMapping("/home-giang-vien")
-    public String homeGiangVien() {
-        return "View/home_giangvien";
-    }
-
-    @GetMapping("/home-sinh-vien")
-    public String homeSinhVien() {
-        return "View/home_sinhvien";
-    }
 
     // Xử lý đăng nhập
     @PostMapping("/login")
@@ -61,12 +53,13 @@ public class TaiKhoanController {
 
             // Kiểm tra quyền của người dùng và chuyển hướng đến trang phù hợp
             if (user.getQuyen() != null && "GiangVien".equals(user.getQuyen().getTenQuyen())) {
-                return "View/home_giangvien"; // Giảng viên
+                return "redirect:/quan-ly-sinh-vien"; // Giảng viên
+
             } else if (user.getQuyen() != null && "SinhVien".equals(user.getQuyen().getTenQuyen())) {
                 // Nếu là sinh viên, lấy lịch học
                 if (user.getSinhVien() == null) {
                     model.addAttribute("error", "Tài khoản chưa liên kết với sinh viên.");
-                    return "View/login";
+                    return "redirect:/xem-lich-hoc";
 
                 }
 
@@ -74,7 +67,7 @@ public class TaiKhoanController {
                 session.setAttribute("sinhVienId", user.getSinhVien().getId());
                 List<LichHoc> lichHocList = lichHocService.getLichHocBySinhVienId(user.getSinhVien().getId());
                 model.addAttribute("lichHocList", lichHocList); // Thêm lịch học vào model
-                return "View/home_sinhvien"; // Sinh viên
+                return "View/xemlichhoc"; // Sinh viên
             }
         }
 
@@ -94,9 +87,9 @@ public class TaiKhoanController {
 
         // Kiểm tra quyền người dùng trong session và chuyển hướng tương ứng
         if (user.getQuyen() != null && "GiangVien".equals(user.getQuyen().getTenQuyen())) {
-            return "View/home_giangvien"; // Giảng viên
+            return "View/quanlysinhvien"; // Giảng viên
         } else if (user.getQuyen() != null && "SinhVien".equals(user.getQuyen().getTenQuyen())) {
-            return "View/home_sinhvien"; // Sinh viên
+            return "View/xemlichhoc"; // Sinh viên
         }
 
         return "View/home"; // Trường hợp mặc định, có thể tạo trang mặc định

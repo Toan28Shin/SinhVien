@@ -38,7 +38,6 @@ public class SinhVien {
     private LocalDate ngaySinh;
 
     @NotBlank(message = "Giới tính không được để trống")
-    @Pattern(regexp = "Nam|Nữ", message = "Giới tính chỉ có thể là 'Nam' hoặc 'Nữ'")
     private String gioiTinh;
 
     @NotBlank(message = "Số điện thoại không được để trống")

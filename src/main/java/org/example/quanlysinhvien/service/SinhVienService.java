@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SinhVienService {
@@ -39,11 +40,26 @@ public class SinhVienService {
     }
 
     public SinhVien themSinhVien(@Valid SinhVien sinhVien) {
+
+        // Kiểm tra trùng mã sinh viên
+        if (sinhVienRepository.existsByMaSinhVien(sinhVien.getMaSinhVien())) {
+            throw new RuntimeException("Mã sinh viên đã tồn tại!");
+        }
+
+        // Kiểm tra trùng email
+        if (sinhVienRepository.existsByEmail(sinhVien.getEmail())) {
+            throw new RuntimeException("Email đã tồn tại!");
+        }
+
+
+
         // Kiểm tra xem sinh viên có tài khoản chưa
         if (sinhVien.getTaiKhoan() == null) {
             // Tạo tài khoản mới cho sinh viên từ họ tên và email
             String tenTaiKhoan = sinhVien.getHoTen().replace(" ", "").toLowerCase(); // Hoặc sử dụng một phần của tên
             String email = sinhVien.getEmail();  // Email của sinh viên sẽ là duy nhất
+
+
 
             // Tạo tài khoản mới cho sinh viên
             TaiKhoan taiKhoan = new TaiKhoan();
@@ -75,8 +91,46 @@ public class SinhVienService {
         return sinhVienRepository.findByTrangThai(1);
     }
 
+    public void suaSinhVien(@Valid SinhVien sinhVien) {
+        if (sinhVien.getMaSinhVien() == null || sinhVien.getMaSinhVien().isEmpty()) {
+            throw new IllegalArgumentException("Mã sinh viên không hợp lệ");
+        }
+
+        SinhVien existing = sinhVienRepository.findByMaSinhVien(sinhVien.getMaSinhVien());
+        if (existing == null) {
+            throw new IllegalArgumentException("Không tìm thấy sinh viên với mã: " + sinhVien.getMaSinhVien());
+
+        }
+        existing.setHoTen(sinhVien.getHoTen());
+        existing.setNgaySinh(sinhVien.getNgaySinh());
+        existing.setGioiTinh(sinhVien.getGioiTinh());
+        existing.setDiaChi(sinhVien.getDiaChi());
+        existing.setEmail(sinhVien.getEmail());
+        existing.setSoDienThoai(sinhVien.getSoDienThoai());
+        existing.setTrangThai(sinhVien.getTrangThai());
+        existing.setNgayNhapHoc(sinhVien.getNgayNhapHoc());
+
+        sinhVienRepository.save(existing);
+    }
+
+    public void xoaSinhVien(String maSinhVien) {
+        SinhVien sv = sinhVienRepository.findByMaSinhVien(maSinhVien);
+        if (sv != null) {
+            sv.setTrangThai(0); // Xoá mềm: chuyển trạng thái sang 0
+            sinhVienRepository.save(sv);
+        } else {
+            throw new IllegalArgumentException("Không tìm thấy sinh viên với mã: " + maSinhVien);
+        }
+    }
 
     public SinhVien getSinhVien(Long id) {
         return sinhVienRepository.findById(id).get();
     }
+    public SinhVien getMaSinhVien(String maSinhVien) {
+        return sinhVienRepository.findByMaSinhVien(maSinhVien);
+    }
+    public Optional<SinhVien> findById(Long id) {
+        return sinhVienRepository.findById(id);
+    }
+
 }

@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Trang chủ</title>
+    <meta charset="UTF-8">
+    <title>Trang chủ | Quản lý Sinh viên</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>Chào mừng đến với Hệ thống Quản lý Sinh viên</h1>
 
-<div th:if="${loggedInUser == null}">
-    <p>Bạn chưa đăng nhập. <a href="login">Đăng nhập ngay</a></p>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-body text-center">
+            <h1 class="card-title mb-4 text-primary">🎓 Hệ thống Quản lý Sinh viên</h1>
+
+            <div th:if="${loggedInUser == null}">
+                <p class="lead text-muted">Bạn chưa đăng nhập.</p>
+                <a href="/login" class="btn btn-primary">🔐 Đăng nhập ngay</a>
+            </div>
+
+            <div th:if="${loggedInUser != null}">
+                <p class="lead">👋 Chào, <strong th:text="${loggedInUser.email}">email@example.com</strong>!</p>
+                <a href="/logout" class="btn btn-outline-danger">🚪 Đăng xuất</a>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div th:if="${loggedInUser != null}">
-    <p>Chào, <span th:text="${loggedInUser.email}"></span>!</p>
-    <p><a href="/logout">Đăng xuất</a></p>
-</div>
-
+<!-- Bootstrap JS (nếu cần tương tác) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

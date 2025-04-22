@@ -17,8 +17,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link active" href="/home-giang-vien">Trang chủ</a></li>
-                <li class="nav-item"><a class="nav-link" href="/quan-ly-sinh-vien">Quản lý sinh viên</a></li>
+                <li class="nav-item"><a class="nav-link active" href="/quan-ly-sinh-vien">Quản lý sinh viên</a></li>
                 <li class="nav-item"><a class="nav-link" href="/quan-ly-diem">Quản lý điểm</a></li>
                 <li class="nav-item"><a class="nav-link" href="/quan-ly-thong-bao">Gửi thông báo</a></li>
                 <li class="nav-item"><a class="nav-link btn btn-danger text-white" href="/logout">Đăng xuất</a></li>
@@ -63,10 +62,11 @@
                 <td th:text="${sinhVien.soDienThoai}"></td>
                 <td th:text="${sinhVien.diaChi}"></td>
                 <td th:text="${sinhVien.ngayNhapHoc}"></td>
-                <td><a th:href="@{/form-sua-sinh-vien/{id}(id=${sinhVien.id})}"
-                       class="btn btn-warning">Sửa</a>
-                    <a th:href="@{/xoa-sinh-vien/{id}(id=${sinhVien.id})}"
-                       class="btn btn-danger">Xóa</a>
+                <td> <a th:href="@{/sua-sinh-vien/{id}(id=${sinhVien.id})}"
+                        class="btn btn-warning btn-sm">Sửa</a>
+                    <a th:href="@{'/xoa/' + ${sinhVien.maSinhVien}}"
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Bạn có chắc chắn muốn xoá?')">Xoá</a>
                     <a th:href="@{/chi-tiet-sinh-vien/{id}(id=${sinhVien.id})}"
                        class="btn btn-info">Chi Tiết</a></td>
 
