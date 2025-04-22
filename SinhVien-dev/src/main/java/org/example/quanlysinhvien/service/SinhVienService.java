@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SinhVienService {
@@ -92,6 +93,7 @@ public class SinhVienService {
         existing.setEmail(sinhVien.getEmail());
         existing.setSoDienThoai(sinhVien.getSoDienThoai());
         existing.setTrangThai(sinhVien.getTrangThai());
+        existing.setNgayNhapHoc(sinhVien.getNgayNhapHoc());
 
         sinhVienRepository.save(existing);
     }
@@ -109,6 +111,9 @@ public class SinhVienService {
         } else {
             throw new IllegalArgumentException("Không tìm thấy sinh viên với mã: " + maSinhVien);
         }
+    }
+    public Optional<SinhVien> findById(Long id) {
+        return sinhVienRepository.findById(id);
     }
 
 

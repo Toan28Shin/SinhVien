@@ -25,37 +25,37 @@ public class SinhVien {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+@Column(name = "ma_sinh_vien")
     @NotBlank(message = "Mã sinh viên không được để trống")
     @Size(min = 4, max = 20, message = "Mã sinh viên phải có từ 4 đến 20 ký tự")
     private String maSinhVien;
-
+    @Column(name = "ho_ten")
     @NotBlank(message = "Họ tên không được để trống")
     @Size(min = 3, max = 50, message = "Họ tên phải có từ 3 đến 50 ký tự")
     private String hoTen;
-
+    @Column(name = "email")
     @NotBlank(message = "Email không được để trống")
     @Email(message = "Email không hợp lệ")
     private String email;
-
+    @Column(name = "ngay_sinh")
     @NotNull(message = "Ngày sinh không được để trống")
     private LocalDate ngaySinh;
-
+    @Column(name = "gioi_tinh")
     @NotBlank(message = "Giới tính không được để trống")
     @Pattern(regexp = "Nam|Nu", message = "Giới tính chỉ có thể là 'Nam' hoặc 'Nữ'")
     private String gioiTinh;
-
+    @Column(name = "so_dien_thoai")
     @NotBlank(message = "Số điện thoại không được để trống")
     @Pattern(regexp = "0\\d{9,10}", message = "Số điện thoại phải bắt đầu bằng 0 và có từ 10 đến 11 chữ số")
     private String soDienThoai;
-
+    @Column(name = "dia_chi")
     @NotBlank(message = "Địa chỉ không được để trống")
     @Size(min = 5, max = 255, message = "Địa chỉ phải có từ 5 đến 255 ký tự")
     private String diaChi;
-
+    @Column(name = "ngay_nhap_hoc")
     @NotNull(message = "Ngày nhập học không được để trống")
     private LocalDate ngayNhapHoc;
-
+    @Column(name = "trang_thai")
     private int trangThai; // 1: Hoạt động, 0: Ngừng hoạt động
 
     @OneToOne
